@@ -9,11 +9,17 @@
     --background: #0a0a0a;
     --background-alt: #121212;
     --foreground: #f2f2f2;
-    --accent-primary: #0ff;   /* Cyan neon */
-    --accent-secondary: #f0f;  /* Magenta neon */
-    --accent-tertiary: #0f0;   /* Green neon */
-    --shadow: rgba(0, 255, 255, 0.1);
-    --glow: 0 0 10px rgba(0, 255, 255, 0.5);
+    --accent-primary: rgba(0, 210, 255, 0.8);   /* More subtle cyan */
+    --accent-secondary: rgba(220, 0, 255, 0.75);  /* More subtle magenta */
+    --accent-tertiary: rgba(0, 220, 150, 0.8);   /* More subtle green */
+    --shadow: rgba(0, 210, 255, 0.07);
+    --glow: 0 0 8px rgba(0, 210, 255, 0.4);
+}
+
+html {
+    /* This prevents layout shift when scrollbar appears/disappears */
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
 }
 
 body {
@@ -23,6 +29,7 @@ body {
     background-color: var(--background);
     min-height: 100vh;
     overflow-x: hidden;
+    width: 100%;
 }
 
 /* Custom scrollbar */
@@ -35,12 +42,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent-primary);
+    background: rgba(80, 80, 90, 0.6);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-secondary);
+    background: rgba(100, 100, 110, 0.8);
 }
 
 .container {
@@ -59,7 +66,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 210, 255, 0.05);
 }
 
 nav {
@@ -211,7 +218,7 @@ section.active {
     padding: 2rem;
     margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -285,7 +292,7 @@ section.active {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 0, 255, 0.1);
+    border: 1px solid rgba(255, 0, 255, 0.05);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     height: 100%;
     display: flex;

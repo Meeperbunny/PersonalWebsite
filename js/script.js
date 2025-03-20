@@ -87,7 +87,7 @@ function setupCanvasAnimation() {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             radius: Math.random() * 2 + 1,
-            color: i % 3 === 0 ? '#0ff' : (i % 3 === 1 ? '#f0f' : '#0f0'),
+            color: i % 3 === 0 ? 'rgba(0, 210, 255, 0.8)' : (i % 3 === 1 ? 'rgba(220, 0, 255, 0.75)' : 'rgba(0, 220, 150, 0.8)'),
             speed: Math.random() * 1 + 0.5,
             angle: Math.random() * Math.PI * 2,
             opacity: Math.random() * 0.5 + 0.5
@@ -122,9 +122,9 @@ function setupCanvasAnimation() {
         
         // Draw gradient circle
         const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, centerCircle.radius);
-        gradient.addColorStop(0, 'rgba(0, 255, 255, 0.8)');
-        gradient.addColorStop(0.5, 'rgba(255, 0, 255, 0.5)');
-        gradient.addColorStop(1, 'rgba(0, 255, 0, 0)');
+        gradient.addColorStop(0, 'rgba(0, 210, 255, 0.7)');
+        gradient.addColorStop(0.5, 'rgba(220, 0, 255, 0.4)');
+        gradient.addColorStop(1, 'rgba(0, 220, 150, 0)');
         
         ctx.beginPath();
         ctx.arc(0, 0, centerCircle.radius, 0, Math.PI * 2);
@@ -132,7 +132,7 @@ function setupCanvasAnimation() {
         ctx.fill();
         
         // Draw circle outline
-        ctx.strokeStyle = '#0ff';
+        ctx.strokeStyle = 'rgba(0, 210, 255, 0.6)';
         ctx.lineWidth = 2;
         ctx.stroke();
         
@@ -195,7 +195,7 @@ function setupCanvasAnimation() {
             }
         }
         ctx.closePath();
-        ctx.strokeStyle = '#f0f';
+        ctx.strokeStyle = 'rgba(220, 0, 255, 0.6)';
         ctx.lineWidth = 1;
         ctx.stroke();
         
@@ -212,7 +212,7 @@ function setupCanvasAnimation() {
             }
         }
         ctx.closePath();
-        ctx.strokeStyle = '#0f0';
+        ctx.strokeStyle = 'rgba(0, 220, 150, 0.6)';
         ctx.lineWidth = 1;
         ctx.stroke();
     }
