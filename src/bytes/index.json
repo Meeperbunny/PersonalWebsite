@@ -1,0 +1,18 @@
+{
+  "bytes": [
+    {
+      "id": "byte-1",
+      "title": "Understanding P vs NP: A Beginner's Guide",
+      "date": "2025-03-18",
+      "filename": "p-vs-np.md",
+      "excerpt": "One of the most important unsolved problems in computer science explained in simple terms..."
+    },
+    {
+      "id": "byte-2",
+      "title": "The Philosophy of Mathematics: Beyond Numbers and Equations",
+      "date": "2025-03-12",
+      "filename": "philosophy-of-math.md",
+      "excerpt": "Exploring the philosophical foundations of mathematics and what it reveals about human cognition..."
+    }
+  ]
+}

@@ -3,59 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ian McKibben | Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <title>Blog24 - About</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <nav>
-                <ul>
-                    <li class="active"><a href="#about" data-section="about">About</a></li>
-                    <li><a href="#blog" data-section="blog">Blog</a></li>
-                    <li><a href="#projects" data-section="projects">Projects</a></li>
-                </ul>
-            </nav>
-        </header>
+<body class="zen-theme">
+    <header>
+        <nav>
+            <div class="logo">Blog24</div>
+            <ul class="nav-links">
+                <li class="active"><a href="index.html">About</a></li>
+                <li><a href="bits.html">Bits</a></li>
+                <li><a href="bytes.html">Bytes</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <main>
-            <section id="about" class="active">
-                <div class="content">
-                    <h1>Ian McKibben</h1>
-                    <p>Welcome to my digital space. I'm passionate about creating innovative solutions and sharing my insights with the world. This is where you'll find my latest projects, blog posts, and more.</p>
+    <main>
+        <section class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <h1 class="zen-title">Welcome to Blog24</h1>
+                    
+                    <div class="zen-divider"></div>
+                    
+                    <div class="about-text">
+                        <p>I'm a passionate math and computer science enjoyer who loves to explore the fascinating intersection of these disciplines. When I'm not diving deep into algorithms or mathematical proofs, I enjoy thinking about life's bigger questions and how technology shapes our world.</p>
+                        <p>This website serves as a platform for sharing my thoughts, projects, and knowledge. You'll find short digestible pieces in the "Bits" section and more comprehensive articles in the "Bytes" section.</p>
+                    </div>
+                    
                     <div class="social-links">
-                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://codeforces.com/profile/yourusername" target="_blank" aria-label="Codeforces"><i class="fas fa-code"></i></a>
+                    </div>
+                    
+                    <div class="zen-divider"></div>
+                    
+                    <div class="portfolio-section">
+                        <h2 class="zen-heading">Projects</h2>
+                        <ul class="project-list">
+                            <li><a href="#">Algorithm Visualization</a> - Interactive visualization of common algorithms</li>
+                            <li><a href="#">Mathematical Patterns</a> - Exploring patterns in nature through mathematics</li>
+                            <li><a href="#">Philosophy of Computing</a> - Essays on the intersection of technology and philosophy</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="animation">
-                    <canvas id="animationCanvas"></canvas>
-                </div>
-            </section>
+            </div>
+        </section>
+    </main>
 
-            <section id="blog">
-                <h1>Blog</h1>
-                <div id="blog-posts" class="blog-container"></div>
-            </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Blog24</p>
+        </div>
+    </footer>
 
-            <section id="projects">
-                <h1>Projects</h1>
-                <div id="projects-list" class="projects-grid"></div>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; <span id="current-year"></span> Ian McKibben. All rights reserved.</p>
-        </footer>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="public/js/script.js"></script>
 </body>
 </html>

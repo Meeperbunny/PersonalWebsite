@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog24 - Byte</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="zen-theme">
+    <header>
+        <nav>
+            <div class="logo">Blog24</div>
+            <ul class="nav-links">
+                <li><a href="index.html">About</a></li>
+                <li><a href="bits.html">Bits</a></li>
+                <li class="active"><a href="bytes.html">Bytes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="bytes.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Bytes</a>
+            <div class="full-post" id="byte-content">
+                <div class="loading">Loading byte...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Blog24. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="public/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSingleByte();
+        });
+    </script>
+</body>
+</html>
