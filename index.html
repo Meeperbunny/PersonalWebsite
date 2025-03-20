@@ -3,43 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ian McKibben</title>
+    <title>Ian McKibben | Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li class="active"><a href="#about">About</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#projects">Projects</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#about" data-section="about">About</a></li>
+                    <li><a href="#blog" data-section="blog">Blog</a></li>
+                    <li><a href="#projects" data-section="projects">Projects</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <section id="about" class="active">
-            <div class="content">
-                <h1>Ian McKibben</h1>
-                <p>Welcome to my personal website.</p>
-            </div>
-            <div class="animation">
-                <canvas id="animationCanvas"></canvas>
-            </div>
-        </section>
+        <main>
+            <section id="about" class="active">
+                <div class="content">
+                    <h1>Ian McKibben</h1>
+                    <p>Welcome to my digital space. I'm passionate about creating innovative solutions and sharing my insights with the world. This is where you'll find my latest projects, blog posts, and more.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="animation">
+                    <canvas id="animationCanvas"></canvas>
+                </div>
+            </section>
 
-        <section id="blog">
-            <h1>Blog</h1>
-            <div id="blog-posts"></div>
-        </section>
+            <section id="blog">
+                <h1>Blog</h1>
+                <div id="blog-posts" class="blog-container"></div>
+            </section>
 
-        <section id="projects">
-            <h1>Projects</h1>
-            <div id="projects-list"></div>
-        </section>
-    </main>
+            <section id="projects">
+                <h1>Projects</h1>
+                <div id="projects-list" class="projects-grid"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; <span id="current-year"></span> Ian McKibben. All rights reserved.</p>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
