@@ -226,7 +226,7 @@ a:hover {
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1.0rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
 }

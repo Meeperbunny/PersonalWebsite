@@ -118,6 +118,23 @@ footer {
     font-family: 'Arvo', serif;
 }
 
+/* Social icons in footer */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 8px; /* Further reduced spacing between icons */
+    margin-bottom: 1rem;
+}
+
+.footer-icon {
+    fill: var(--dark-brown);
+    transition: fill 0.3s ease;
+}
+
+.footer-icon:hover {
+    fill: var(--dark-green);
+}
+
 /* For links in content */
 a {
     color: var(--dark-green);
