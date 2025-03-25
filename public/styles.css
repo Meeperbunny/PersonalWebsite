@@ -1,0 +1,358 @@
+/* Import Arvo font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap');
+
+/* Japandi color theme */
+:root {
+    --cream: #f5f2e9;
+    --dark-brown: #3b2a1f;
+    --medium-brown: #5a4a3f;
+    --light-brown: #8c7b6b;
+    --dark-green: #5a9360; /* Even lighter green */
+    --darker-green: #3a5a40; /* Previous dark-green value */
+    --light-gray: #e8e4dd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arvo', serif;
+    background-color: var(--cream);
+    color: var(--dark-brown);
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 1rem;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--dark-green);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+    font-family: 'Arvo', serif;
+}
+
+nav a:hover {
+    color: var(--darker-green);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--dark-green);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a.active {
+    color: var(--dark-green);
+}
+
+nav a.active::after {
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 65vh;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--dark-brown);
+    font-family: 'Arvo', serif;
+}
+
+h2, h3, h4, h5, h6 {
+    color: var(--dark-brown);
+    margin-bottom: 1rem;
+    font-family: 'Arvo', serif;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--dark-brown);
+    font-family: 'Arvo', serif;
+}
+
+footer {
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--medium-brown);
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light-gray);
+    font-family: 'Arvo', serif;
+}
+
+/* Clean up and consolidate link styling */
+a {
+    color: var(--dark-green);
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.3s ease;
+    font-family: 'Arvo', serif;
+}
+
+a:hover {
+    color: var(--darker-green);
+}
+
+.markdown-content a {
+    color: var(--dark-green);
+    border-bottom: none;
+}
+
+.markdown-content a:hover {
+    color: var(--darker-green);
+}
+
+/* For links in content */
+.social-icons a {
+    color: var(--dark-brown);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
+}
+
+.social-icons a:hover {
+    color: var(--darker-green);
+    transform: translateY(-3px);
+    border-bottom: none;
+}
+
+/* Markdown content styles */
+.markdown-content {
+    text-align: left;
+    width: 100%;
+}
+
+.markdown-content ul, .markdown-content ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.markdown-content li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-content blockquote {
+    border-left: 3px solid var(--medium-brown);
+    padding-left: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: var(--medium-brown);
+}
+
+.markdown-content pre {
+    background-color: var(--light-gray);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+.markdown-content code {
+    font-family: monospace;
+    background-color: var(--light-gray);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+}
+
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+.post-item {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--light-gray);
+    width: 100%;
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.loader {
+    margin: 2rem auto;
+    font-style: italic;
+    color: var(--medium-brown);
+}
+
+/* Social icon styling */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-brown);
+    transition: color 0.3s ease, transform 0.2s ease;
+    border-bottom: none;
+}
+
+.social-icon:hover {
+    color: var(--dark-green);
+    transform: translateY(-3px);
+    border-bottom: none;
+}
+
+.footer-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+}
+
+/* Content styles */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Footer Styles */
+.site-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--light-gray);
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: var(--medium-brown);
+    margin-bottom: 1rem;
+}
+
+/* Custom X icon */
+.x-icon {
+    position: relative;
+    width: 1.1em;
+    height: 1em;
+    display: inline-block;
+    font-size: 1.5rem;
+    transform: scale(1.2);
+}
+
+.x-icon::before,
+.x-icon::after,
+.x-icon span::before,
+.x-icon span::after {
+    content: "";
+    position: absolute;
+    background-color: currentColor;
+}
+
+/* Main diagonal from top-left to bottom-right */
+.x-icon::before {
+    width: 0.12em;
+    height: 1.1em;
+    left: 0.1em;
+    top: -0.05em;
+    transform: rotate(45deg);
+}
+
+/* Main diagonal from top-right to bottom-left */
+.x-icon::after {
+    width: 0.12em;
+    height: 1.1em;
+    right: 0.1em;
+    top: -0.05em;
+    transform: rotate(-45deg);
+}
+
+/* Short line connecting to the right of the X */
+.x-icon span::before {
+    width: 0.12em;
+    height: 0.5em;
+    left: 0.7em;
+    top: 0.25em;
+    transform: rotate(-45deg);
+}
+
+/* Short line connecting to the left of the X */
+.x-icon span::after {
+    width: 0.12em;
+    height: 0.5em;
+    right: 0.7em;
+    top: 0.25em;
+    transform: rotate(45deg);
+}
+
+/* SVG X logo */
+.x-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+}
+
+/* SVG LinkedIn logo */
+.linkedin-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+}
+
+/* SVG Calendar logo */
+.calendar-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+}
+
+/* SVG Email logo */
+.email-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+}
