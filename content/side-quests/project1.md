@@ -1,17 +1,4 @@
-# Project One
+# A TikTok Retrospective
+*March 25, 2025*
 
-This is an example side quest project. Replace with your own content.
-
-## Description
-
-A brief description of your side project.
-
-## Technologies Used
-
-- Technology 1
-- Technology 2
-- Technology 3
-
-## Outcome
-
-What you learned or achieved.
+In the Fall of 2023, I was sent a YouTube short of a colorful square bouncing around the screen.
