@@ -147,3 +147,11 @@ a {
 a:hover {
     border-color: var(--dark-green);
 }
+
+/* Custom image sizes */
+.small-image {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+}

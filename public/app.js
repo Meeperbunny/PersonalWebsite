@@ -70,6 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Make all external links open in new tab
             makeExternalLinksOpenInNewTab();
+            
+            // Render LaTeX content
+            if (window.renderMathInElement) {
+                window.renderMathInElement(contentDiv, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ]
+                });
+            }
         } catch (error) {
             console.error('Error loading content:', error);
             contentDiv.innerHTML = `<h1>Error</h1><p>Failed to load content. Please try again later.</p>`;
