@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "A minimalist personal website with draggable pastel-colored bubbles showing Markdown content.",
     "scripts": {
-      "start": "node_modules/.bin/parcel index.html --public-url /",
+      "start": "node_modules/.bin/parcel index.html --public-url / --port 3000",
       "build": "node_modules/.bin/parcel build index.html --public-url /"
     },
     "repository": {
