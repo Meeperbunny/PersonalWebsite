@@ -216,7 +216,7 @@ POSITION: 75% 60%
 
 ## Favorite Stationary
 ### Notebook: [Kokuyo 8S5-D](https://www.kokuyo-st.co.jp/en/search/m_detail.php?seihin_sikibetu=1&ss1=07&ss2=07A0&sid=100120530&pgmax=20)
-### Pens: [Kokuyo 8S5-D](https://www.monotaro.com/p/5533/0267/?cq_med=pla&cq_plt=gp&utm_medium=cpc&utm_source=google&utm_campaign=246-833-4061_6466659573_shopping&utm_content=96539050923&utm_term=_419857551521_x_pla-879055535975&utm_id=55330267&gad_source=1&gbraid=0AAAAADNqOHAhxAkL3XU5RmCODbXscg5ZI&gclid=Cj0KCQjwh_i_BhCzARIsANimeoHAmBzL0Q6T__1Lh5RPvP4suOKTIJ1cYH0Dcn00xy2Cj5iHCvwiJ4AaAmUXEALw_wcB)`,
+### Pens: [Uni-ball One Black 0.5mm](https://www.monotaro.com/p/5533/0267/?cq_med=pla&cq_plt=gp&utm_medium=cpc&utm_source=google&utm_campaign=246-833-4061_6466659573_shopping&utm_content=96539050923&utm_term=_419857551521_x_pla-879055535975&utm_id=55330267&gad_source=1&gbraid=0AAAAADNqOHAhxAkL3XU5RmCODbXscg5ZI&gclid=Cj0KCQjwh_i_BhCzARIsANimeoHAmBzL0Q6T__1Lh5RPvP4suOKTIJ1cYH0Dcn00xy2Cj5iHCvwiJ4AaAmUXEALw_wcB)`,
 `RADIUS: 125
 POSITION: 55% 22%
 
