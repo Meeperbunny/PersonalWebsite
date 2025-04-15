@@ -12,6 +12,7 @@ build/
 out/
 .nuxt/
 .output/
+.parcel-cache/
 
 # Environment variables
 .env
