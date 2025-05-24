@@ -88,14 +88,40 @@ class BezierCurve {
 }
 
 // Typing animation function
-async function typeText(element, text, speed = 1) {  // Default speed (lower = faster)
+async function typeText(element, text, speed = 1, linkPhrases = []) {  // Default speed (lower = faster)
     return new Promise((resolve) => {
         element.classList.add('typing');
         let i = 0;
         const type = () => {
             if (i < text.length) {
-                // Only update the text content, not innerHTML, to avoid HTML parsing issues
-                element.textContent = text.substring(0, i + 1);
+                const currentText = text.substring(0, i + 1);
+                
+                // Apply special formatting for link phrases
+                if (linkPhrases.length > 0) {
+                    let formattedText = currentText;
+                    
+                    // Check each link phrase
+                    linkPhrases.forEach(phrase => {
+                        // Only color the phrase if it's partially or fully typed
+                        const index = text.indexOf(phrase);
+                        if (index > -1 && i >= index) {
+                            // How much of the phrase has been typed
+                            const phraseEnd = Math.min(i + 1, index + phrase.length);
+                            const visiblePhrase = text.substring(index, phraseEnd);
+                            
+                            // Replace the phrase with a colored span
+                            formattedText = formattedText.replace(
+                                visiblePhrase,
+                                `<span style="color: #64b5f6;">${visiblePhrase}</span>`
+                            );
+                        }
+                    });
+                    
+                    element.innerHTML = formattedText;
+                } else {
+                    element.textContent = currentText;
+                }
+                
                 i++;
                 setTimeout(type, speed);
             } else {
@@ -186,10 +212,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     await typeText(titleLine, titleText, 30);  // Medium speed for title
     await new Promise(resolve => setTimeout(resolve, 100));  // Short pause
     
-    // Type the interests line without links first
-    await typeText(interestsLine, 'i enjoy competitive programming and writing.', 20);
+    // Type the interests line with blue link text
+    const interestsTextWithLinks = 'i enjoy competitive programming and writing.';
+    const linkPhrases = ['competitive programming', 'writing'];
     
-    // Add the links after typing is done
+    await typeText(interestsLine, interestsTextWithLinks, 20, linkPhrases);
+    
+    // Add the actual links after typing is done
     interestsLine.innerHTML = 'i enjoy <a href="https://codeforces.com/profile/Meeperbunny" target="_blank" rel="noopener noreferrer" class="link">competitive programming</a> and <a href="/blog" class="link">writing</a>.';
     
     // Add cursor to the end of the last line
