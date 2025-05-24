@@ -1,127 +1,146 @@
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  font-family: 'Inter', system-ui, sans-serif;
-  background: #f9f7f3;
-  color: #2e2a24;
-  overflow-x: hidden;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-#bg-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
+svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transition: all 0.3s ease-out;
 }
 
-main {
-  position: relative;
-  z-index: 1;
-  max-width: 650px;
-  margin: 80px auto 40px auto;
-  padding: 2.5rem 2rem 2.5rem 2rem;
-  background: rgba(255,255,255,0.88);
-  border-radius: 18px;
-  box-shadow: 0 4px 32px 0 rgba(60, 50, 30, 0.08);
-  border: 1.5px solid #d5cbb3;
+.bezier-curve {
+    fill: none;
+    stroke-linecap: round;
+    stroke-width: 1px; /* Increased from default */
+    transition: all 0.5s ease-out;
+    transform-origin: center;
 }
 
-#markdown-content h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  letter-spacing: -1px;
-  margin-top: 0;
-  margin-bottom: 0.85em;
-  color: #3e4639;
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #ffffff;
+    font-family: 'Source Code Pro', monospace;
+    line-height: 1.6;
 }
 
-#markdown-content {
-  font-size: 1.18rem;
-  line-height: 1.7;
+h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
 }
 
-#markdown-content > *:not(:first-child) {
-  margin-top: 1.2em;
+p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    font-weight: 300;
 }
 
-#markdown-content hr, #markdown-content > hr, #markdown-content > .hr {
-  margin: 2em 0;
+/* Add a subtle glow to the text */
+.content h2,
+.content p {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-#markdown-content h2, #markdown-content h3, #markdown-content h4 {
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  color: #2d684e;
+/* Style for links */
+.content a {
+    color: #64b5f6;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
-.linkedin-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 2px 8px 0 rgba(60, 50, 30, 0.13);
-  border: 1.5px solid #d5cbb3;
-  transition: box-shadow 0.2s, background 0.2s;
-  opacity: 0.82;
-  z-index: 10;
+.content a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #64b5f6;
+    transition: width 0.3s ease;
 }
 
-.linkedin-link:hover {
-  box-shadow: 0 4px 18px 0 rgba(60, 50, 30, 0.22);
-  background: #f9f7f3;
-  opacity: 1;
+.content a:hover {
+    color: #bbdefb;
 }
 
-.linkedin-link img {
-  width: 28px;
-  height: 28px;
-  display: block;
+.content a:hover::after {
+    width: 100%;
 }
 
-
-#markdown-content {
-  font-size: 1.18rem;
-  line-height: 1.7;
+/* Typing container */
+#typing-container {
+    min-height: 200px;
+    overflow: hidden; /* Prevent any potential layout shifts */
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #3e4639;
-  font-weight: 700;
+/* Typing animation styles */
+#name-line, #title-line, #interests-line {
+    display: block;
+    min-height: 1.5em; /* Ensure consistent line height */
+    margin: 0;
+    padding: 0.1em 0; /* Add some padding to prevent text clipping */
 }
 
-a {
-  color: #2d684e;
-  text-decoration: underline;
-  transition: color 0.2s;
+.typing {
+    position: relative;
+    display: inline;
 }
 
-a:hover {
-  color: #4c3b26;
+.typing::after {
+    content: '|';
+    position: absolute;
+    right: -0.5em;
+    animation: blink 1s step-end infinite;
+    color: #ffffff;
+    font-weight: 300;
+    opacity: 0.8;
+    line-height: inherit;
 }
 
-.linkedin-link {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 10;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px 0 rgba(60, 50, 30, 0.13);
-  padding: 8px;
-  border: 1.5px solid #d5cbb3;
-  transition: box-shadow 0.2s;
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
 }
 
-.linkedin-link:hover {
-  box-shadow: 0 4px 18px 0 rgba(60, 50, 30, 0.22);
+/* Ensure links are always visible and clickable */
+#interests-line a {
+    color: #64b5f6; /* Blue color for links */
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+#interests-line a:hover {
+    color: #90caf9; /* Lighter blue on hover */
+}
+
+#interests-line a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #64b5f6;
+    transition: width 0.3s ease;
+}
+
+#interests-line a:hover::after {
+    width: 100%;
 }

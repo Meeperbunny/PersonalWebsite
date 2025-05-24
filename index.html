@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ian McKibben</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Animated Bezier Curves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="bg-canvas"></canvas>
-  <main>
-    <section id="markdown-content"></section>
-  </main>
-  <a href="https://www.linkedin.com/in/ian-mckibben" class="linkedin-link" target="_blank" rel="noopener">
-    <img src="linkedin.svg" alt="LinkedIn" height="32" width="32">
-  </a>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="script.js"></script>
+    <svg></svg>
+    
+    <div class="content">
+        <div id="typing-container">
+            <h2 id="name-line"></h2>
+            <p id="title-line"></p>
+            <p id="interests-line"></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

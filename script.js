@@ -1,94 +1,197 @@
-// Ambient animated background: dots and lines (complete graph)
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-
-const DOTS = 18;
-const DOT_RADIUS = 4;
-const LINE_WIDTH = 1.1;
-const DOT_COLOR = '#3e4639'; // dark green
-const LINE_COLOR = '#4c3b26'; // dark brown
-const BG_COLOR = '#f9f7f3'; // cream
-const DOT_SPEED = 0.35;
-
-let width, height, dots;
-
-function resize() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-}
-
-function randomDot() {
-  return {
-    x: Math.random() * width,
-    y: Math.random() * height,
-    vx: (Math.random() - 0.5) * DOT_SPEED,
-    vy: (Math.random() - 0.5) * DOT_SPEED,
-  };
-}
-
-function initDots() {
-  dots = [];
-  for (let i = 0; i < DOTS; i++) {
-    dots.push(randomDot());
-  }
-}
-
-function updateDots() {
-  for (const dot of dots) {
-    dot.x += dot.vx;
-    dot.y += dot.vy;
-    if (dot.x < 0 || dot.x > width) dot.vx *= -1;
-    if (dot.y < 0 || dot.y > height) dot.vy *= -1;
-    dot.x = Math.max(0, Math.min(dot.x, width));
-    dot.y = Math.max(0, Math.min(dot.y, height));
-  }
-}
-
-function draw() {
-  ctx.clearRect(0, 0, width, height);
-  // Draw lines between every pair
-  ctx.save();
-  ctx.globalAlpha = 0.16;
-  ctx.strokeStyle = LINE_COLOR;
-  ctx.lineWidth = LINE_WIDTH;
-  for (let i = 0; i < dots.length; i++) {
-    for (let j = i + 1; j < dots.length; j++) {
-      ctx.beginPath();
-      ctx.moveTo(dots[i].x, dots[i].y);
-      ctx.lineTo(dots[j].x, dots[j].y);
-      ctx.stroke();
+class BezierCurve {
+    constructor(index, total) {
+        this.index = index;
+        this.total = total;
+        this.svg = document.querySelector('svg');
+        this.path = null;
+        
+        // Define two base curves to interpolate between
+        this.curveA = this.createBaseCurve(0.2, 0.8);  // Top curve
+        this.curveB = this.createBaseCurve(0.8, 0.2);  // Bottom curve
+        
+        this.init();
     }
-  }
-  ctx.restore();
-  // Draw dots
-  ctx.fillStyle = DOT_COLOR;
-  for (const dot of dots) {
-    ctx.beginPath();
-    ctx.arc(dot.x, dot.y, DOT_RADIUS, 0, 2 * Math.PI);
-    ctx.fill();
-  }
+    
+    // Create a base curve with given y position multipliers
+    createBaseCurve(startYMult, endYMult) {
+        return (width, height) => {
+            const verticalCenter = height * 0.8;
+            const horizontalCenter = width * 0.8;
+            const amplitude = height * 0.8;
+            
+            return {
+                start: { x: -width * 0.1, y: verticalCenter * startYMult },
+                control1: { 
+                    x: width * 0.4, 
+                    y: verticalCenter - amplitude * startYMult 
+                },
+                control2: { 
+                    x: width * 0.8, 
+                    y: verticalCenter + amplitude * endYMult 
+                },
+                end: { x: width * 1.1, y: verticalCenter * endYMult }
+            };
+        };
+    }
+    
+    // Linear interpolation between two points
+    lerpPoint(a, b, t) {
+        return {
+            x: a.x + (b.x - a.x) * t,
+            y: a.y + (b.y - a.y) * t
+        };
+    }
+    
+    init() {
+        this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        this.path.setAttribute('fill', 'none');
+        this.path.classList.add('bezier-curve');
+        
+        // Calculate color based on position
+        const hue = (360 / this.total) * this.index;
+        this.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
+        this.path.setAttribute('stroke-width', '1.5');
+        this.path.setAttribute('stroke-linecap', 'round');
+        this.path.setAttribute('opacity', '0.8');
+        
+        this.svg.appendChild(this.path);
+        this.updateCurve();
+    }
+    
+    updateCurve() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        
+        // Get the two base curves
+        const curveA = this.curveA(width, height);
+        const curveB = this.curveB(width, height);
+        
+        // Calculate interpolation factor (0 to 1)
+        const t = this.total > 1 ? this.index / (this.total - 1) : 0.5;
+        
+        // Interpolate between the two curves
+        const start = this.lerpPoint(curveA.start, curveB.start, t);
+        const control1 = this.lerpPoint(curveA.control1, curveB.control1, t);
+        const control2 = this.lerpPoint(curveA.control2, curveB.control2, t);
+        const end = this.lerpPoint(curveA.end, curveB.end, t);
+        
+        // Create the path data
+        const pathData = `
+            M ${start.x},${start.y}
+            C ${control1.x},${control1.y}
+              ${control2.x},${control2.y}
+              ${end.x},${end.y}
+        `;
+        
+        this.path.setAttribute('d', pathData);
+    }
 }
 
-function animate() {
-  updateDots();
-  draw();
-  requestAnimationFrame(animate);
+// Typing animation function
+async function typeText(element, text, speed = 1) {  // Default speed (lower = faster)
+    return new Promise((resolve) => {
+        element.classList.add('typing');
+        let i = 0;
+        const type = () => {
+            if (i < text.length) {
+                // Only update the text content, not innerHTML, to avoid HTML parsing issues
+                element.textContent = text.substring(0, i + 1);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                element.classList.remove('typing');
+                resolve();
+            }
+        };
+        type();
+    });
 }
 
-window.addEventListener('resize', () => {
-  resize();
-  initDots();
+// Initialize when the DOM is loaded
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize bezier curves first
+    const svg = document.querySelector('svg');
+    const numberOfCurves = 18;
+    const curves = [];
+    
+    for (let i = 0; i < numberOfCurves; i++) {
+        curves.push(new BezierCurve(i, numberOfCurves));
+    }
+
+    // Start the animation loop
+    let time = 0;
+    let resizeTimeout;
+    
+    function handleResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            curves.forEach(curve => curve.updateCurve());
+        }, 1000);
+    }
+    
+    // Start the animation loop
+    function animate() {
+        time += 0.005;
+        
+        curves.forEach((curve, index) => {
+            const phase = (index / curves.length) * Math.PI * 2;
+            const waveOffset = Math.sin(time + phase) * 0.5 + 0.5;
+            const t = (index + waveOffset) / curves.length;
+            
+            const curveA = curve.curveA(window.innerWidth, window.innerHeight);
+            const curveB = curve.curveB(window.innerWidth, window.innerHeight);
+            
+            const start = curve.lerpPoint(curveA.start, curveB.start, t);
+            const control1 = curve.lerpPoint(curveA.control1, curveB.control1, t);
+            const control2 = curve.lerpPoint(curveA.control2, curveB.control2, t);
+            const end = curve.lerpPoint(curveA.end, curveB.end, t);
+            
+            const pathData = `
+                M ${start.x},${start.y}
+                C ${control1.x},${control1.y}
+                  ${control2.x},${control2.y}
+                  ${end.x},${end.y}
+            `;
+            
+            curve.path.setAttribute('d', pathData);
+            const hue = (360 * t + index * 20) % 360;
+            curve.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    
+    // Set up event listeners
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    animate();
+    
+    // Typing animation
+    const nameLine = document.getElementById('name-line');
+    const titleLine = document.getElementById('title-line');
+    const interestsLine = document.getElementById('interests-line');
+    
+    // Text to type (without HTML for typing, we'll add it after)
+    const nameText = 'ian mckibben';
+    const titleText = 'software engineer based in the san francisco bay area.';
+    const interestsText = 'i enjoy competitive programming and writing.';
+    
+    // Start typing animation with appropriate speeds
+    await typeText(nameLine, nameText, 80);  // Slower for name
+    await new Promise(resolve => setTimeout(resolve, 100));  // Short pause
+    await typeText(titleLine, titleText, 30);  // Medium speed for title
+    await new Promise(resolve => setTimeout(resolve, 100));  // Short pause
+    
+    // Type the interests line without links first
+    await typeText(interestsLine, 'i enjoy competitive programming and writing.', 20);
+    
+    // Add the links after typing is done
+    interestsLine.innerHTML = 'i enjoy <a href="https://codeforces.com/profile/Meeperbunny" target="_blank" rel="noopener noreferrer" class="link">competitive programming</a> and <a href="/blog" class="link">writing</a>.';
+    
+    // Add cursor to the end of the last line
+    interestsLine.classList.add('typing');
 });
-
-resize();
-initDots();
-animate();
-
-// Markdown rendering
-fetch('content.md')
-  .then(resp => resp.text())
-  .then(md => {
-    document.getElementById('markdown-content').innerHTML = marked.parse(md);
-  });
