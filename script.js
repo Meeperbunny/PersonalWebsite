@@ -87,12 +87,27 @@ class BezierCurve {
     }
 }
 
-// Typing animation function
-async function typeText(element, text, speed = 1, linkPhrases = []) {  // Default speed (lower = faster)
+// Global variable to track the active cursor
+let activeCursor = null;
+
+async function typeText(element, text, speed = 30, linkPhrases = []) {
     return new Promise((resolve) => {
-        element.classList.add('typing');
         let i = 0;
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        cursor.textContent = '|';
+        
+        // Remove any existing cursors from all lines
+        const removeAllCursors = () => {
+            const allCursors = document.querySelectorAll('.typing-cursor');
+            allCursors.forEach(c => c.remove());
+            activeCursor = null;
+        };
+        
         const type = () => {
+            // Remove all cursors first
+            removeAllCursors();
+            
             if (i < text.length) {
                 const currentText = text.substring(0, i + 1);
                 
@@ -100,16 +115,12 @@ async function typeText(element, text, speed = 1, linkPhrases = []) {  // Defaul
                 if (linkPhrases.length > 0) {
                     let formattedText = currentText;
                     
-                    // Check each link phrase
                     linkPhrases.forEach(phrase => {
-                        // Only color the phrase if it's partially or fully typed
                         const index = text.indexOf(phrase);
                         if (index > -1 && i >= index) {
-                            // How much of the phrase has been typed
                             const phraseEnd = Math.min(i + 1, index + phrase.length);
                             const visiblePhrase = text.substring(index, phraseEnd);
                             
-                            // Replace the phrase with a colored span
                             formattedText = formattedText.replace(
                                 visiblePhrase,
                                 `<span style="color: #64b5f6;">${visiblePhrase}</span>`
@@ -122,10 +133,16 @@ async function typeText(element, text, speed = 1, linkPhrases = []) {  // Defaul
                     element.textContent = currentText;
                 }
                 
+                // Add cursor at the end of current line
+                element.appendChild(cursor);
+                activeCursor = cursor;
+                
                 i++;
                 setTimeout(type, speed);
             } else {
-                element.classList.remove('typing');
+                // Keep cursor at the end when done typing
+                element.appendChild(cursor);
+                activeCursor = cursor;
                 resolve();
             }
         };
@@ -202,25 +219,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     const interestsLine = document.getElementById('interests-line');
     
     // Text to type (without HTML for typing, we'll add it after)
-    const nameText = 'ian mckibben';
+    const nameText = 'ian mckibben.';
     const titleText = 'software engineer based in the san francisco bay area.';
     const interestsText = 'i enjoy competitive programming and writing.';
     
-    // Start typing animation with appropriate speeds
-    await typeText(nameLine, nameText, 80);  // Slower for name
-    await new Promise(resolve => setTimeout(resolve, 100));  // Short pause
-    await typeText(titleLine, titleText, 30);  // Medium speed for title
-    await new Promise(resolve => setTimeout(resolve, 100));  // Short pause
+    // Start typing animation with faster speeds (about half the time)
+    await typeText(nameLine, nameText, 20);  // Faster for name
+    await new Promise(resolve => setTimeout(resolve, 200));  // Shorter pause
+    await typeText(titleLine, titleText, 16);  // Faster for title
+    await new Promise(resolve => setTimeout(resolve, 200));  // Shorter pause
     
     // Type the interests line with blue link text
     const interestsTextWithLinks = 'i enjoy competitive programming and writing.';
     const linkPhrases = ['competitive programming', 'writing'];
     
-    await typeText(interestsLine, interestsTextWithLinks, 20, linkPhrases);
+    await typeText(interestsLine, interestsTextWithLinks, 16, linkPhrases);  // Faster for interests
+    
+    // Remove all cursors first
+    const allCursors = document.querySelectorAll('.typing-cursor');
+    allCursors.forEach(c => c.remove());
     
     // Add the actual links after typing is done
     interestsLine.innerHTML = 'i enjoy <a href="https://codeforces.com/profile/Meeperbunny" target="_blank" rel="noopener noreferrer" class="link">competitive programming</a> and <a href="/blog" class="link">writing</a>.';
     
-    // Add cursor to the end of the last line
-    interestsLine.classList.add('typing');
+    // Add cursor at the end of the last line
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    cursor.textContent = '|';
+    interestsLine.appendChild(cursor);
+    activeCursor = cursor;
 });

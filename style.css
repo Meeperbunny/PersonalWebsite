@@ -95,22 +95,18 @@ p {
     min-height: 1.5em; /* Ensure consistent line height */
     margin: 0;
     padding: 0.1em 0; /* Add some padding to prevent text clipping */
+    position: relative; /* For cursor positioning */
 }
 
-.typing {
-    position: relative;
-    display: inline;
-}
-
-.typing::after {
-    content: '|';
-    position: absolute;
-    right: -0.5em;
-    animation: blink 1s step-end infinite;
+.typing-cursor {
+    display: inline-block;
     color: #ffffff;
     font-weight: 300;
     opacity: 0.8;
-    line-height: inherit;
+    animation: blink 1s step-end infinite;
+    margin-left: 1px;
+    position: relative;
+    top: 0;
 }
 
 @keyframes blink {
