@@ -50,7 +50,7 @@ class BezierCurve {
         this.path.classList.add('bezier-curve');
         
         // Calculate color based on position
-        const hue = (360 / this.total) * this.index;
+        const hue = (0 * 360 / this.total) * this.index;
         this.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
         this.path.setAttribute('stroke-width', '1.5');
         this.path.setAttribute('stroke-linecap', 'round');
@@ -180,11 +180,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Start the animation loop
     function animate() {
-        time += 0.005;
+        time += 0.003;
         
         curves.forEach((curve, index) => {
             const phase = (index / curves.length) * Math.PI * 2;
-            const waveOffset = Math.sin(time + phase) * 0.5 + 0.5;
+            const waveOffset = Math.sin(time + phase) * 0.8 + 0.5;
             const t = (index + waveOffset) / curves.length;
             
             const curveA = curve.curveA(window.innerWidth, window.innerHeight);
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             
             curve.path.setAttribute('d', pathData);
-            const hue = (360 * t + index * 20) % 360;
+            const hue = (80 * t + index * 5) % 360;
             curve.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
         });
         
@@ -226,16 +226,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     const interestsText = 'i enjoy competitive programming and writing.';
     
     // Start typing animation with faster speeds (about half the time)
-    await typeText(nameLine, nameText, 20);  // Faster for name
-    await new Promise(resolve => setTimeout(resolve, 200));  // Shorter pause
-    await typeText(titleLine, titleText, 16);  // Faster for title
-    await new Promise(resolve => setTimeout(resolve, 200));  // Shorter pause
+    await typeText(nameLine, nameText, 30);  // Faster for name
+    await new Promise(resolve => setTimeout(resolve, 120));  // Shorter pause
+    await typeText(titleLine, titleText, 14);  // Faster for title
+    await new Promise(resolve => setTimeout(resolve, 120));  // Shorter pause
     
     // Type the interests line with blue link text
     const interestsTextWithLinks = 'i enjoy competitive programming and writing.';
     const linkPhrases = ['competitive programming', 'writing'];
     
-    await typeText(interestsLine, interestsTextWithLinks, 16, linkPhrases);  // Faster for interests
+    await typeText(interestsLine, interestsTextWithLinks, 14, linkPhrases);  // Faster for interests
     
     // Remove all cursors first
     const allCursors = document.querySelectorAll('.typing-cursor');
