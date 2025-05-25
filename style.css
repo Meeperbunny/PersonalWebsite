@@ -27,27 +27,29 @@ svg {
 .content {
     position: relative;
     z-index: 1;
-    padding: 2rem;
+    padding: 7rem 2rem 2rem; /* 2rem + 5rem (80px) = 7rem top padding */
     max-width: 800px;
     margin: 0 auto;
     color: #ffffff;
     font-family: 'Source Code Pro', monospace;
     line-height: 1.6;
+    box-sizing: border-box;
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 2.1rem; /* 1.5rem * 1.4 */
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 1.4rem; /* Increased proportionally */
     color: #ffffff;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.7px; /* Slightly increased */
 }
 
 p {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    margin: 0.5rem 0;
+    font-size: 1.4rem; /* 1rem * 1.4 */
+    margin: 0.7rem 0; /* Increased proportionally */
     font-weight: 300;
+    line-height: 1.6; /* Added for better readability */
 }
 
 /* Add a subtle glow to the text */

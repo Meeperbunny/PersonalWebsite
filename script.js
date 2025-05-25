@@ -6,8 +6,8 @@ class BezierCurve {
         this.path = null;
         
         // Define two base curves to interpolate between
-        this.curveA = this.createBaseCurve(0.2, 0.8);  // Top curve
-        this.curveB = this.createBaseCurve(0.8, 0.2);  // Bottom curve
+        this.curveA = this.createBaseCurve(-0.4, 1.0);  // Top curve
+        this.curveB = this.createBaseCurve(0.8, -0.1);  // Bottom curve
         
         this.init();
     }
@@ -16,20 +16,22 @@ class BezierCurve {
     createBaseCurve(startYMult, endYMult) {
         return (width, height) => {
             const verticalCenter = height * 0.8;
-            const horizontalCenter = width * 0.8;
-            const amplitude = height * 0.8;
+            const amplitude = height * 0.5;
+            
+            // Calculate mirrored x positions (flip around the center)
+            const flipX = (x) => width - x; // Mirror x-coordinate around center
             
             return {
-                start: { x: -width * 0.1, y: verticalCenter * startYMult },
+                start: { x: width * 1.2, y: verticalCenter * startYMult - 200 },
                 control1: { 
-                    x: width * 0.4, 
-                    y: verticalCenter - amplitude * startYMult 
+                    x: flipX(width * 0.3), 
+                    y: verticalCenter + amplitude * startYMult * 0.7 - 100
                 },
                 control2: { 
-                    x: width * 0.8, 
-                    y: verticalCenter + amplitude * endYMult 
+                    x: flipX(width * 0.4), 
+                    y: verticalCenter + amplitude * endYMult * 0.6 + 100
                 },
-                end: { x: width * 1.1, y: verticalCenter * endYMult }
+                end: { x: -width * 0.2, y: verticalCenter * endYMult }
             };
         };
     }
