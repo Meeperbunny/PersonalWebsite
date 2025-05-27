@@ -70,17 +70,10 @@
             <h1 style="color: #ffffff; font-size: 2.1rem; margin: 0; font-weight: 400; letter-spacing: 0.7px;">journaling</h1>
         </div>
         
-        <div class="journal-content" style="margin-top: 2rem;">
-            <!-- <p style="color: #ffffff; font-size: 1.65rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
-                
-            </p> -->
-            <p style="color: #ffffff; font-size: 1.5rem; line-height: 1.6; margin: 0; font-weight: 300;">
-                through journaling, i reflect on life and learn more about myself. my public journal is available
-                <a href="https://www.notion.so/Public-Journals-1ffd1b3f6b4b80158244f266706e6e6d?pvs=4" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="journal-link">
-                    here</a>.
+        <div class="journal-content" style="margin-top: 2rem; min-height: 100px; max-width: 800px; font-size: 0;">
+            <p id="journal-line" style="color: #ffffff; font-size: 1.5rem; line-height: 1.6; margin: 0; font-weight: 300; display: inline-block; width: 100%;">
+                <span id="typing-text"></span>
+                <span id="typing-cursor" class="typing-cursor">|</span>
             </p>
         </div>
         
@@ -110,25 +103,107 @@
             .journal-link:hover::after {
                 width: 100%;
             }
+            
+            .typing-cursor {
+                display: inline;
+                color: #ffffff;
+                font-weight: 300;
+                position: relative;
+                top: -1px;
+                margin-left: -1px; /* Pull cursor slightly left */
+                opacity: 1; /* Start solid */
+                animation: none; /* No animation by default */
+            }
+            
+            .typing-cursor.blinking {
+                animation: blink 1s step-end infinite !important;
+            }
+            
+            @keyframes blink {
+                from, to { opacity: 1; }
+                50% { opacity: 0; }
+            }
         </style>
         
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const journalContent = document.querySelector('.journal-content');
-                const slidingBar = document.querySelector('.sliding-bar');
-                
-                // Animate the bar on load
-                setTimeout(() => {
-                    slidingBar.style.width = '100%';
-                }, 100);
-                
-                // Reset and re-animate when hovering over the content
-                journalContent.addEventListener('mouseenter', () => {
-                    slidingBar.style.width = '0%';
-                    setTimeout(() => {
-                        slidingBar.style.width = '100%';
-                    }, 10);
+            // Typing animation function
+            async function typeText(element, text, speed = 30) {
+                return new Promise((resolve) => {
+                    const textSpan = document.getElementById('typing-text');
+                    const cursor = document.getElementById('typing-cursor');
+                    let i = 0;
+                    
+                    cursor.style.display = 'inline';
+                    cursor.classList.remove('blinking'); // Remove blink during typing
+                    
+                    function type() {
+                        if (i < text.length) {
+                            textSpan.textContent = text.substring(0, i + 1);
+                            i++;
+                            setTimeout(type, speed);
+                        } else {
+                            cursor.classList.add('blinking'); // Add blink when done
+                            resolve();
+                        }
+                    }
+                    
+                    type();
                 });
+            }
+
+            document.addEventListener('DOMContentLoaded', async () => {
+                const journalText = document.getElementById('typing-text');
+                const cursor = document.getElementById('typing-cursor');
+                
+                // Text to type
+                const text = 'through journaling, i reflect on life and learn more about myself. my public journal is available ';
+                const linkText = 'here';
+                
+                // Ensure cursor is solid at start
+                cursor.style.opacity = '1';
+                cursor.style.animation = 'none';
+                
+                // Type the main text
+                await typeText(document.getElementById('journal-line'), text, 16);
+                
+                // Create a container for the link and cursor
+                const container = document.createElement('span');
+                container.style.display = 'inline';
+                
+                // Create the link element
+                const link = document.createElement('a');
+                link.href = 'https://www.notion.so/Public-Journals-1ffd1b3f6b4b80158244f266706e6e6d?pvs=4';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'journal-link';
+                link.textContent = '';
+                
+                // Add elements to container
+                container.appendChild(link);
+                container.appendChild(cursor);
+                
+                // Add container to the DOM
+                journalText.after(container);
+                
+                // Type the link text
+                cursor.style.opacity = '1';
+                cursor.style.animation = 'none';
+                
+                // Type the link text
+                let i = 0;
+                const typeLink = setInterval(() => {
+                    if (i < linkText.length) {
+                        link.textContent = linkText.substring(0, i + 1);
+                        i++;
+                    } else {
+                        clearInterval(typeLink);
+                        // Add the period after the link
+                        const period = document.createTextNode('.');
+                        container.insertBefore(period, cursor);
+                        // Start blinking only when all typing is done
+                        cursor.style.animation = 'blink 1s step-end infinite';
+                    }
+                }, 10);
             });
         </script>
     </div>
