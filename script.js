@@ -50,7 +50,7 @@ class BezierCurve {
         this.path.classList.add('bezier-curve');
         
         // Calculate color based on position
-        const hue = (0 * 360 / this.total) * this.index;
+        const hue = (360 / this.total) * this.index;
         this.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
         this.path.setAttribute('stroke-width', '1.5');
         this.path.setAttribute('stroke-linecap', 'round');
@@ -156,7 +156,7 @@ async function typeText(element, text, speed = 30, linkPhrases = []) {
 document.addEventListener('DOMContentLoaded', async () => {
     // Initialize bezier curves first
     const svg = document.querySelector('svg');
-    const numberOfCurves = 18;
+    const numberOfCurves = 160;
     const curves = [];
     
     for (let i = 0; i < numberOfCurves; i++) {
@@ -180,16 +180,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Start the animation loop
     function animate() {
-        time += 0.003;
+        time += 0.02; // Slightly faster animation
         
         curves.forEach((curve, index) => {
-            const phase = (index / curves.length) * Math.PI * 2;
-            const waveOffset = Math.sin(time + phase) * 0.8 + 0.5;
-            const t = (index + waveOffset) / curves.length;
+            // Create a smooth wave effect that moves across all curves together
+            const waveOffset = Math.sin(time / 10 + Math.pow(index, 1.5) * 0.0016) * 0.6; // Small oscillation
+            const t = 0.5 + waveOffset; // Oscillate around the center
             
             const curveA = curve.curveA(window.innerWidth, window.innerHeight);
             const curveB = curve.curveB(window.innerWidth, window.innerHeight);
             
+            // Interpolate between the two curves with the wave offset
             const start = curve.lerpPoint(curveA.start, curveB.start, t);
             const control1 = curve.lerpPoint(curveA.control1, curveB.control1, t);
             const control2 = curve.lerpPoint(curveA.control2, curveB.control2, t);
@@ -203,8 +204,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             
             curve.path.setAttribute('d', pathData);
-            const hue = (80 * t + index * 5) % 360;
-            curve.path.setAttribute('stroke', `hsl(${hue}, 80%, 60%)`);
+            
+            // Vary the hue based on index and time for a colorful effect
+            const hue = (index * 0.8 + time * 18) % 360; // Rotate through colors over time
+            const saturation = 80; // Keep saturation consistent
+            const lightness = 50 + Math.sin(time * 0.5 + index * 0.1) * 10; // Subtle lightness variation
+            const opacity = 0.8 - (index / curves.length * 0.7); // More dramatic opacity gradient
+            curve.path.setAttribute('stroke', `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`);
         });
         
         requestAnimationFrame(animate);
@@ -221,9 +227,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const interestsLine = document.getElementById('interests-line');
     
     // Text to type (without HTML for typing, we'll add it after)
-    const nameText = 'ian mckibben.';
+    const nameText = 'ian mckibben';
     const titleText = 'software engineer based in the san francisco bay area.';
-    const interestsText = 'i enjoy competitive programming and writing.';
+    const interestsText = 'i enjoy competitive programming and journaling.';
     
     // Start typing animation with faster speeds (about half the time)
     await typeText(nameLine, nameText, 30);  // Faster for name
@@ -232,8 +238,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await new Promise(resolve => setTimeout(resolve, 120));  // Shorter pause
     
     // Type the interests line with blue link text
-    const interestsTextWithLinks = 'i enjoy competitive programming and writing.';
-    const linkPhrases = ['competitive programming', 'writing'];
+    const interestsTextWithLinks = 'i enjoy competitive programming and journaling.';
+    const linkPhrases = ['competitive programming', 'journaling'];
     
     await typeText(interestsLine, interestsTextWithLinks, 14, linkPhrases);  // Faster for interests
     
@@ -242,7 +248,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     allCursors.forEach(c => c.remove());
     
     // Add the actual links after typing is done
-    interestsLine.innerHTML = 'i enjoy <a href="https://codeforces.com/profile/Meeperbunny" target="_blank" rel="noopener noreferrer" class="link">competitive programming</a> and <a href="/blog" class="link">writing</a>.';
+    interestsLine.innerHTML = 'i enjoy <a href="https://codeforces.com/profile/Meeperbunny" target="_blank" rel="noopener noreferrer" class="link">competitive programming</a> and <a href="/journals" class="link">journaling</a>.';
     
     // Add cursor at the end of the last line
     const cursor = document.createElement('span');

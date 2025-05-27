@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Ian McKibben</title>
+    <title>Journal - Ian McKibben</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&display=swap" rel="stylesheet">
@@ -53,58 +53,10 @@
             display: block;
         }
         
-        .blog-posts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .blog-post {
-            background: rgba(20, 20, 30, 0.8);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-transform: lowercase;
-        }
-        
-        .blog-post:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .post-date {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .post-title {
-            font-size: 1.4rem;
-            margin: 0.5rem 0;
-            color: #fff;
-            font-weight: 400;
-            text-transform: lowercase;
-        }
-        
-        .post-excerpt {
-            color: rgba(255, 255, 255, 0.7);
-            margin: 0.5rem 0 0;
-            line-height: 1.6;
-            text-transform: lowercase;
-        }
-        
         @media (max-width: 768px) {
             .blog-container {
                 padding: 1rem;
-            }
-            
-            .blog-posts {
-                grid-template-columns: 1fr;
+                padding-top: 4rem;
             }
         }
     </style>
@@ -115,30 +67,77 @@
     <div class="blog-container">
         <div class="header-container">
             <a href="/" class="back-link" aria-label="Back to home"></a>
-            <h1 style="color: #ffffff; font-size: 2.5rem; margin: 0;">Blog</h1>
+            <h1 style="color: #ffffff; font-size: 2.5rem; margin: 0;">journaling</h1>
         </div>
         
-        <div class="blog-posts">
-            <!-- Blog post cards will be dynamically inserted here -->
-            <a href="posts/first-post.html" class="blog-post">
-                <div class="post-date">May 24, 2025</div>
-                <h2 class="post-title">My First Blog Post</h2>
-                <p class="post-excerpt">Welcome to my first blog post! I'm excited to share my thoughts and experiences with you through this new platform.</p>
-            </a>
-            
-            <a href="#" class="blog-post">
-                <div class="post-date">Coming Soon</div>
-                <h2 class="post-title">More Content on the Way</h2>
-                <p class="post-excerpt">I'm currently working on some exciting content that I can't wait to share with you all!</p>
-            </a>
+        <div class="journal-content" style="margin-top: 2rem;">
+            <!-- <p style="color: #ffffff; font-size: 1.65rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+                
+            </p> -->
+            <p style="color: #ffffff; font-size: 1.65rem; line-height: 1.6; margin: 0;">
+                through journaling, i reflect on life experiences and learn more about myself. my public journal is available
+                <a href="https://www.notion.so/Public-Journals-1ffd1b3f6b4b80158244f266706e6e6d?pvs=4" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="journal-link">
+                    here</a>.
+            </p>
         </div>
+        
+        <style>
+            .journal-link {
+                color: #64b5f6;
+                text-decoration: none;
+                position: relative;
+                transition: color 0.3s ease;
+            }
+            
+            .journal-link:hover {
+                color: #90caf9;
+            }
+            
+            .journal-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 1px;
+                bottom: -2px;
+                left: 0;
+                background-color: #64b5f6;
+                transition: width 0.3s ease;
+            }
+            
+            .journal-link:hover::after {
+                width: 100%;
+            }
+        </style>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const journalContent = document.querySelector('.journal-content');
+                const slidingBar = document.querySelector('.sliding-bar');
+                
+                // Animate the bar on load
+                setTimeout(() => {
+                    slidingBar.style.width = '100%';
+                }, 100);
+                
+                // Reset and re-animate when hovering over the content
+                journalContent.addEventListener('mouseenter', () => {
+                    slidingBar.style.width = '0%';
+                    setTimeout(() => {
+                        slidingBar.style.width = '100%';
+                    }, 10);
+                });
+            });
+        </script>
     </div>
     
     <script>
         // Add the same curve animation as the main page
         document.addEventListener('DOMContentLoaded', () => {
             const svg = document.querySelector('svg');
-            const numberOfCurves = 160; // Fewer curves for better performance
+            const numberOfCurves = 100; // Fewer curves for better performance
             const curves = [];
             
             class BezierCurve {
@@ -149,7 +148,7 @@
                     this.path.setAttribute('fill', 'none');
                     this.path.classList.add('bezier-curve');
                     
-                    const hue = (360 / 2 / this.total) * this.index;
+                    const hue = (360 / 1.6 / this.total) * this.index;
                     this.path.setAttribute('stroke', `hsla(${hue}, 80%, 60%, 0.6)`);
                     this.path.setAttribute('stroke-width', '1.5');
                     this.path.setAttribute('stroke-linecap', 'round');
@@ -161,11 +160,11 @@
                 update(width, height) {
                     const verticalCenter = height * 0.8;
                     const amplitude = height * 0.5;
-                    const offset = (this.index * this.index/ 300 / this.total) * Math.PI * 2;
-                    const wave = Math.sin(Date.now() * 0.0001 + offset) * 0.5 + 0.5;
+                    const offset = (Math.pow(this.index, 2.1)/ 300 / this.total) * Math.PI * 2;
+                    const wave = Math.sin(Date.now() * 0.0002 + offset) * 0.6 + 0.9;
                     
-                    const startY = verticalCenter - 120 + (wave * 200);
-                    const endY = verticalCenter + 100 - (wave * 200);
+                    const startY = verticalCenter - 120 + (wave * 200) - 100;
+                    const endY = verticalCenter + 100 - (wave * 200) - 100;
                     
                     const pathData = `
                         M ${-width * 0.2} ${startY + 60}

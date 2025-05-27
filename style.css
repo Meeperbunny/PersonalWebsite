@@ -25,7 +25,7 @@ svg {
 .bezier-curve {
     fill: none;
     stroke-linecap: round;
-    stroke-width: 1px; /* Increased from default */
+    stroke-width: 4px; /* Increased from default */
     transition: all 0.5s ease-out;
     transform-origin: center;
 }
